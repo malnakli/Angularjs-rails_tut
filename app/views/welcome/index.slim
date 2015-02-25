@@ -1,0 +1,13 @@
+h1 | Welcome#index
+p | Find me in app/views/welcome/index.slim
+
+div[calss = "container-fluid" ng-app="receta"]
+	div class="panel panel-success"
+		div class="panel-heading"
+			h1 ng-if="name"
+			|   Hello, {{name}}
+		div class="panel-body"
+			form class="form-inline"
+				div class="form-group"
+					input[class="form-control" type="text" placeholder="Enter your name" ng-model="name"]
+
