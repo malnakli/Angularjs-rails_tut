@@ -4,12 +4,14 @@
 
 # receta = angular.module('receta',[
 # 'templates',
-#'ngRoute',
-#'controllers',
+# 'ngRoute',
+# 'ngResource',
+# 'controllers',
 # ])
 `var receta = angular.module('receta',[
     'templates',
     'ngRoute',
+    'ngResource',
     'controllers',
 ]);`
 
@@ -43,13 +45,14 @@
 #]
 #
 #controllers = angular.module('controllers',[])
-#controllers.controller("RecipesController", [ '$scope', '$routeParams', '$location',
-#    ($scope,$routeParams,$location)->
-#        $scope.search = (keywords)->  $location.path("/").search('keywords',keywords)
+#controllers.controller("RecipesController", [ '$scope', '$routeParams', '$location', '$resource',
+#    ($scope,$routeParams,$location,$resource)->
+#        $scope.search = (keyword)->  $location.path("/").search('keywords',keyword)
 #
+#        Recipe = $resource('/recipes/:recipeId', { recipeId: "@id", format: 'json' })
+
 #        if $routeParams.keywords
-#            keywords = $routeParams.keywords.toLowerCase()
-#            $scope.recipes = recipes.filter (recipe)-> recipe.name.toLowerCase().indexOf(keywords) != -1
+#            Recipe.query(keywords: $routeParams.keywords, (results)-> $scope.recipes = results)
 #        else
 #            $scope.recipes = []
 #])
@@ -87,21 +90,25 @@ var controllers = angular.module('controllers',[]);
 // but it's guaranteed to work through the asset pipeline and any minification or obfuscation that
 // happens to the JavaScript.
 
-controllers.controller("RecipesController", [ '$scope', '$routeParams', '$location',
-    function($scope, $routeParams,$location){
+controllers.controller("RecipesController", [ '$scope', '$routeParams', '$location' , '$resource',
+    function($scope, $routeParams,$location,$resource){
 
-        $scope.search = function(keywords){
+        $scope.search = function(keyword){
             // for debuging
-            console.log(keywords);
-            return $location.path("/").search('keywords',keywords);
+            console.log(keyword);
+            return $location.path("/").search('keywords',keyword);
         }
 
+       var Recipe = $resource('/recipes/:recipeId', { recipeId: "@id", format: 'json' });
+
         if ($routeParams.keywords){
-            var keywords = $routeParams.keywords.toLowerCase();
-            $scope.recipes = recipes.filter(function(recipe){
-                return recipe.name.toLowerCase().indexOf(keywords) !== -1;
-                }
-            )
+            Recipe.query({
+                keywords: $routeParams.keywords
+                },
+                function(results){
+                    console.log(results);
+                    $scope.recipes = results;
+                });
         }
         else
             $scope.recipes = [];
