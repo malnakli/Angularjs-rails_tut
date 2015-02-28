@@ -1,28 +1,12 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Links that  help me working with angular js and rails
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+1. http://angular-rails.com
+2. http://stackoverflow.com/questions/14797935/using-angularjs-with-turbolinks1.
+2. https://docs.angularjs.org/guide/bootstrap
+3. http://bower.io/
+4. https://github.com/pitr/angular-rails-templates
+5. http://railscasts.com/episodes/320-jbuilder
+6. https://github.com/rails/jbuilder
+7. https://devcenter.heroku.com/articles/getting-started-with-rails4
